@@ -1,0 +1,94 @@
+basePath: /api/v1
+definitions:
+  models.Fruit:
+    properties:
+      color:
+        description: |-
+          fruit color
+          required: true
+          example: red
+        type: string
+      fruit:
+        description: |-
+          fruit name
+          required: true
+          example: apple
+        type: string
+      id:
+        description: |-
+          id
+          required: true
+          example: apple
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    name: sachin26051@gmail.com
+  description: Fruits API Server.
+  license:
+    name: Apache 2.0
+  title: Castor Fruits  API
+  version: "1.0"
+paths:
+  /Fruits/:
+    get:
+      consumes:
+      - application/json
+      description: List all Fruits
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Fruit'
+      summary: List all Fruits
+      tags:
+      - Fruits
+    post:
+      consumes:
+      - application/json
+      description: Create new Fruit record in Library
+      parameters:
+      - description: Add Fruit
+        in: body
+        name: Fruit
+        required: true
+        schema:
+          $ref: '#/definitions/models.Fruit'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Fruit'
+      summary: Create new Fruit record in Library
+      tags:
+      - Fruits
+  /Fruits/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Return Fruit by Id
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Fruit'
+        "404":
+          description: Not Found
+          schema: {}
+      summary: Return Fruit by Id
+      tags:
+      - Fruits
+swagger: "2.0"

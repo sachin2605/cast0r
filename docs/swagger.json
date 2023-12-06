@@ -1,0 +1,128 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Fruits API Server.",
+        "title": "Castor Fruits  API",
+        "contact": {
+            "name": "sachin26051@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/Fruits/": {
+            "get": {
+                "description": "List all Fruits",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Fruits"
+                ],
+                "summary": "List all Fruits",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Fruit"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new Fruit record in Library",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Fruits"
+                ],
+                "summary": "Create new Fruit record in Library",
+                "parameters": [
+                    {
+                        "description": "Add Fruit",
+                        "name": "Fruit",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Fruit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Fruit"
+                        }
+                    }
+                }
+            }
+        },
+        "/Fruits/{id}": {
+            "get": {
+                "description": "Return Fruit by Id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Fruits"
+                ],
+                "summary": "Return Fruit by Id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Fruit"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {}
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Fruit": {
+            "type": "object",
+            "properties": {
+                "color": {
+                    "description": "fruit color\nrequired: true\nexample: red",
+                    "type": "string"
+                },
+                "fruit": {
+                    "description": "fruit name\nrequired: true\nexample: apple",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "id\nrequired: true\nexample: apple",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
