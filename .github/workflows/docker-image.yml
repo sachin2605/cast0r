@@ -9,6 +9,16 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 jobs:
+   test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Push Image
+      run: docker push ghcr.io/$IMAGE_NAME:latest
+    - name: Start MongoDB
+      uses: MongoCamp/mongodb-github-action@1.0.0
+      with:
+        mongodb-version: 4.4.4
 
   build:
 
