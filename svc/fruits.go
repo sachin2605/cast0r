@@ -17,7 +17,7 @@ type FruitService struct{}
 // List list all Fruits
 func (br *FruitService) List() []models.Fruit {
 	log.Println("[FruitService] List() Getting Fruits from Mongo.")
-	collection := DB.Collection("Fruits")
+	collection := DB.Collection("fruits")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -44,7 +44,7 @@ func (br *FruitService) List() []models.Fruit {
 
 // Get Fruit by ID
 func (br *FruitService) Get(id string) (f models.Fruit, err error) {
-	col := DB.Collection("Fruits")
+	col := DB.Collection("fruits")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -64,7 +64,7 @@ func (br *FruitService) Get(id string) (f models.Fruit, err error) {
 
 // Create creates new Fruit Document in Mongo
 func (br *FruitService) Create(Fruit models.Fruit) interface{} {
-	collection := DB.Collection("Fruits")
+	collection := DB.Collection("fruits")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	Fruit.Id = primitive.NewObjectID()
@@ -72,7 +72,8 @@ func (br *FruitService) Create(Fruit models.Fruit) interface{} {
 	result, err := collection.InsertOne(ctx, Fruit)
 
 	if err != nil {
-		log.Fatal("Error while Inserting new Fruit..")
+		log.Fatal("Error while Inserting new Fruit in Mongo.", err.Error())
+		log.Fatal(err.Error())
 	}
 	return result.InsertedID
 }

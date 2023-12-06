@@ -8,7 +8,6 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	"github.com/sachin2605/cast0r/configs"
 	"github.com/sachin2605/cast0r/controller"
 	"github.com/sachin2605/cast0r/models"
 	"github.com/sachin2605/cast0r/svc"
@@ -17,7 +16,6 @@ import (
 
 func SetUpRouter() *gin.Engine {
 	router := gin.Default()
-	configs.LoadEnv("dev")
 	svc.InitServices()
 	return router
 }

@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang:latest as builder
 
 # Add Maintainer Info
 LABEL maintainer="test@email.com"
@@ -10,10 +10,16 @@ WORKDIR /app
 COPY . .
 
 # Build the Go app
-RUN go build -o main .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o main .
+# CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o main .
+
+FROM alpine:latest
+WORKDIR /app
+
+COPY --from=builder /app/main .
 
 # Expose port 8080 to the outside world
 EXPOSE 8080
 
 # Command to run the executable
-CMD ["./main", "--env", "test"]
+CMD ["./main"]

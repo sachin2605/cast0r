@@ -1,13 +1,10 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-
-	"github.com/sachin2605/cast0r/configs"
 	"github.com/sachin2605/cast0r/controller"
 	"github.com/sachin2605/cast0r/svc"
 
+	"github.com/joho/godotenv"
 	_ "github.com/sachin2605/cast0r/docs"
 
 	"github.com/gin-gonic/gin"
@@ -27,24 +24,18 @@ import (
 func SetupRouter() *gin.Engine {
 	router := gin.Default()
 
-	api := router.Group("api/v1/fruits")
+	api := router.Group("api/v1")
 	{
 		fruitCtrl := new(controller.FruitController)
-		api.GET("/", fruitCtrl.List)
-		api.GET("/:id", fruitCtrl.Get)
-		api.POST("/", fruitCtrl.Create)
+		api.GET("/fruits", fruitCtrl.List)
+		api.GET("/fruits/:id", fruitCtrl.Get)
+		api.POST("/fruits", fruitCtrl.Create)
 	}
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return router
 }
 func main() {
-	var envFlag string
-	flag.StringVar(&envFlag, "env", "dev", "Environment flag: 'dev' or 'test'")
-	flag.Parse()
-	fmt.Println("Environment: ", envFlag)
-
-	// Load environment variables based on the flag
-	configs.LoadEnv(envFlag)
+	godotenv.Load()
 	svc.InitServices()
 	router := SetupRouter()
 	router.Run()
