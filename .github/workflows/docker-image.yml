@@ -25,4 +25,4 @@ jobs:
         username: ${{github.actor}}
         password: ${{secrets.GITHUB_TOKEN}}
     - name: Push Image
-      run: docker push ghcr.io/sachin2605/$IMAGE_NAME
+      run: docker push ghcr.io/$IMAGE_NAME
