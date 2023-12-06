@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"github.com/sachin2605/cast0r/controller"
 	"github.com/sachin2605/cast0r/models"
 	"github.com/sachin2605/cast0r/svc"
@@ -15,6 +16,7 @@ import (
 )
 
 func SetUpRouter() *gin.Engine {
+	godotenv.Load()
 	router := gin.Default()
 	svc.InitServices()
 	return router
