@@ -14,6 +14,10 @@ import (
 
 type FruitService struct{}
 
+func NewFruitService() FruitService {
+	return FruitService{}
+}
+
 // List list all Fruits
 func (br *FruitService) List() []models.Fruit {
 	log.Println("[FruitService] List() Getting Fruits from Mongo.")

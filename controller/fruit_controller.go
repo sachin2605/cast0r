@@ -10,7 +10,15 @@ import (
 )
 
 // FruitController  FruitController
-type FruitController struct{}
+type FruitController struct {
+	FruitSvc svc.FruitService
+}
+
+func NewFruitController() FruitController {
+	return FruitController{
+		FruitSvc: svc.NewFruitService(),
+	}
+}
 
 // List : Return list of Fruits
 // @Summary List all Fruits
@@ -20,9 +28,8 @@ type FruitController struct{}
 // @Produce  json
 // @Success 200 {object} models.Fruit
 // @Router /Fruits/ [get]
-func (bc *FruitController) List(c *gin.Context) {
-	repository := new(svc.FruitService)
-	var Fruits = repository.List()
+func (fc *FruitController) List(c *gin.Context) {
+	var Fruits = fc.FruitSvc.List()
 	c.JSON(200, Fruits)
 }
 
@@ -36,10 +43,9 @@ func (bc *FruitController) List(c *gin.Context) {
 // @Success 200 {object} models.Fruit
 // @Failure 404 {object} error
 // @Router /Fruits/{id} [get]
-func (bc *FruitController) Get(c *gin.Context) {
+func (fc *FruitController) Get(c *gin.Context) {
 	id := c.Param("id")
-	repository := new(svc.FruitService)
-	Fruit, err := repository.Get(id)
+	Fruit, err := fc.FruitSvc.Get(id)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"code":    http.StatusNotFound,
@@ -60,14 +66,13 @@ func (bc *FruitController) Get(c *gin.Context) {
 // @Param Fruit body models.Fruit true "Add Fruit"
 // @Success 201 {object} models.Fruit
 // @Router /Fruits/ [post]
-func (bc *FruitController) Create(c *gin.Context) {
+func (fc *FruitController) Create(c *gin.Context) {
 	var Fruit models.Fruit
-	repository := new(svc.FruitService)
 
 	if err := c.BindJSON(&Fruit); err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
-		FruitID := repository.Create(Fruit)
+		FruitID := fc.FruitSvc.Create(Fruit)
 		c.JSON(http.StatusCreated, FruitID)
 	}
 }
