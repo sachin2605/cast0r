@@ -27,7 +27,7 @@ func NewFruitController() FruitController {
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} models.Fruit
-// @Router /Fruits/ [get]
+// @Router /fruits [get]
 func (fc *FruitController) List(c *gin.Context) {
 	var Fruits = fc.FruitSvc.List()
 	c.JSON(200, Fruits)
@@ -42,7 +42,7 @@ func (fc *FruitController) List(c *gin.Context) {
 // @Param id path string true "id"
 // @Success 200 {object} models.Fruit
 // @Failure 404 {object} error
-// @Router /Fruits/{id} [get]
+// @Router /fruits/{id} [get]
 func (fc *FruitController) Get(c *gin.Context) {
 	id := c.Param("id")
 	Fruit, err := fc.FruitSvc.Get(id)
@@ -65,7 +65,7 @@ func (fc *FruitController) Get(c *gin.Context) {
 // @Produce  json
 // @Param Fruit body models.Fruit true "Add Fruit"
 // @Success 201 {object} models.Fruit
-// @Router /Fruits/ [post]
+// @Router /fruits [post]
 func (fc *FruitController) Create(c *gin.Context) {
 	var Fruit models.Fruit
 

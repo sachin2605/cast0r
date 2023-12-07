@@ -23,7 +23,6 @@ import (
 
 func SetupRouter() *gin.Engine {
 	router := gin.Default()
-
 	api := router.Group("api/v1")
 	{
 		fruitCtrl := new(controller.FruitController)

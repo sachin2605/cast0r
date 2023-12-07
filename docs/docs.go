@@ -20,7 +20,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/Fruits/": {
+        "/fruits": {
             "get": {
                 "description": "List all Fruits",
                 "consumes": [
@@ -75,7 +75,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/Fruits/{id}": {
+        "/fruits/{id}": {
             "get": {
                 "description": "Return Fruit by Id",
                 "consumes": [

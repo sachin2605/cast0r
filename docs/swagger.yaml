@@ -31,7 +31,7 @@ info:
   title: Castor Fruits  API
   version: "1.0"
 paths:
-  /Fruits/:
+  /fruits:
     get:
       consumes:
       - application/json
@@ -67,7 +67,7 @@ paths:
       summary: Create new Fruit record in Library
       tags:
       - Fruits
-  /Fruits/{id}:
+  /fruits/{id}:
     get:
       consumes:
       - application/json
