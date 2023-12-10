@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type FruitService struct{}
@@ -19,14 +20,15 @@ func NewFruitService() FruitService {
 }
 
 // List list all Fruits
-func (br *FruitService) List() []models.Fruit {
+func (br *FruitService) List(page, limit int) []models.Fruit {
 	log.Println("[FruitService] List() Getting Fruits from Mongo.")
+	offset := (page - 1) * limit
 	collection := DB.Collection("fruits")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	cursor, err := collection.Find(ctx, bson.M{})
+	cursor, err := collection.Find(ctx, bson.M{}, options.Find().SetLimit(int64(limit)).SetSkip(int64(offset)))
 
 	if err != nil {
 		log.Fatal("Error while retriving Fruits..")

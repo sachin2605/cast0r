@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/sachin2605/cast0r/models"
 	"github.com/sachin2605/cast0r/svc"
@@ -26,10 +27,23 @@ func NewFruitController() FruitController {
 // @Tags Fruits
 // @Accept  json
 // @Produce  json
+// @Param page path string false "page"
+// @Param limit path string false "limit"
 // @Success 200 {object} models.Fruit
 // @Router /fruits [get]
 func (fc *FruitController) List(c *gin.Context) {
-	var Fruits = fc.FruitSvc.List()
+	page, err := strconv.Atoi(c.DefaultQuery("page", "1"))
+	if err != nil || page <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid page number"})
+		return
+	}
+
+	limit, err := strconv.Atoi(c.DefaultQuery("limit", "100"))
+	if err != nil || limit <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid limit"})
+		return
+	}
+	var Fruits = fc.FruitSvc.List(page, limit)
 	c.JSON(200, Fruits)
 }
 

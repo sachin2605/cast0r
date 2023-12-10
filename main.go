@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/sachin2605/cast0r/controller"
 	"github.com/sachin2605/cast0r/svc"
 
@@ -31,6 +33,11 @@ func SetupRouter() *gin.Engine {
 		api.POST("/fruits", fruitCtrl.Create)
 	}
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	router.GET("/health", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "ok",
+		})
+	})
 	return router
 }
 func main() {
