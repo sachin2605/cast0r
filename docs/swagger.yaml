@@ -36,6 +36,15 @@ paths:
       consumes:
       - application/json
       description: List all Fruits
+      parameters:
+      - description: page
+        in: path
+        name: page
+        type: string
+      - description: limit
+        in: path
+        name: limit
+        type: string
       produces:
       - application/json
       responses:

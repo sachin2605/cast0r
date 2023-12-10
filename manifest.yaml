@@ -145,18 +145,18 @@ spec:
           env:
             - name: MONGOURI
               value: mongodb://root:example@mongodb-service:27017/
-          # livenessProbe:
-          #   httpGet:
-          #     path: /health
-          #     port: 8080
-          #   initialDelaySeconds: 20
-          #   periodSeconds: 5
-          # readinessProbe:
-          #   httpGet:
-          #     path: /health
-          #     port: 8080
-          #   initialDelaySeconds: 20
-          #   periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 5
       restartPolicy: Always
 status: {}
 
